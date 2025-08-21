@@ -1,0 +1,98 @@
+# ==============================
+# Local 환경 설정 (로컬 개발용)
+# ==============================
+
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  # ==============================
+  # 데이터소스 설정 (H2 인메모리 DB)
+  # ==============================
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    hikari:
+      # HikariCP 커넥션 풀 설정
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # ==============================
+  # JPA/Hibernate 설정
+  # ==============================
+  jpa:
+    hibernate:
+      ddl-auto: none # none = 테이블 자동 생성 안함, create/update 가능
+    show-sql: true # 실행되는 SQL 콘솔 출력
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect # H2 전용 Dialect
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 25
+          order_inserts: true
+          order_updates: true
+    defer-datasource-initialization: true
+
+  # ==============================
+  # SQL 초기화 설정
+  # ==============================
+  sql:
+    init:
+      mode: always # 애플리케이션 시작 시 SQL 초기화
+      continue-on-error: true # 에러 있어도 진행
+
+  # ==============================
+  # H2 콘솔 활성화 (개발 편의)
+  # ==============================
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# ==============================
+# 로깅 설정
+# ==============================
+logging:
+  level:
+    root: INFO
+    com.rnai.backend: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# ==============================
+# Spring Boot Actuator (헬스체크, 메트릭 등)
+# ==============================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics # 외부에서 접근 가능한 엔드포인트
+  endpoint:
+    health:
+      show-details: always # 헬스체크 상세 정보 표시
+
+# ==============================
+# Swagger/OpenAPI 설정 (API 문서화)
+# ==============================
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: method
+
+# ==============================
+# 애플리케이션 정보
+# ==============================
+app:
+  name: ${APP_NAME:RnAiPlatformApplicationBackend}
+  version: ${APP_VERSION:1.0.0}
+  environment: local # 현재 환경
