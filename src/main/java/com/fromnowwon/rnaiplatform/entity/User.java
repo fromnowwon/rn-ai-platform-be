@@ -2,6 +2,8 @@ package com.fromnowwon.rnaiplatform.entity;
 
 import java.time.LocalDateTime;
 
+import com.fromnowwon.rnaiplatform.enums.Role;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -51,6 +53,10 @@ public class User {
   @Email(message = "Email 형식이 올바르지 않습니다.")
   @Column(nullable = false, length = 100)
   private String email;
+
+  @Enumerated(EnumType.STRING) // Enum 타입을 DB에 문자열로 저장
+  @Column(nullable = false)
+  private Role role = Role.USER; // 기본값
 
   @Column(nullable = false)
   private boolean active = true;
