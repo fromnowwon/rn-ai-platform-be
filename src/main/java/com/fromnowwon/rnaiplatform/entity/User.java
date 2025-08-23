@@ -3,6 +3,10 @@ package com.fromnowwon.rnaiplatform.entity;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,12 +37,18 @@ public class User {
   // ==============================
   // 사용자 정보
   // ==============================
+  @NotBlank(message = "Username은 필수 입력입니다.")
+  @Size(max = 50, message = "Username은 최대 50자까지 가능합니다.")
   @Column(nullable = false, length = 50)
   private String username;
 
+  @NotBlank(message = "Password는 필수 입력입니다.")
+  @Size(min = 6, message = "Password는 최소 6자 이상이어야 합니다.")
   @Column(nullable = false)
   private String password;
 
+  @NotBlank(message = "Email은 필수 입력입니다.")
+  @Email(message = "Email 형식이 올바르지 않습니다.")
   @Column(nullable = false, length = 100)
   private String email;
 

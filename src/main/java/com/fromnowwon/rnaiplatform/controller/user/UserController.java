@@ -3,6 +3,9 @@ package com.fromnowwon.rnaiplatform.controller.user;
 import org.springframework.web.bind.annotation.*;
 import com.fromnowwon.rnaiplatform.entity.User;
 import com.fromnowwon.rnaiplatform.service.user.UserService;
+
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 @RestController
@@ -17,7 +20,7 @@ public class UserController {
 
   // 회원 생성
   @PostMapping
-  public User createUser(@RequestBody User user) {
+  public User createUser(@Valid @RequestBody User user) {
     return userService.createUser(user); 
   }
 
