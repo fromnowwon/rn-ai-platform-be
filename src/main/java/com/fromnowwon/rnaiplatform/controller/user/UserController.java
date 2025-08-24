@@ -29,10 +29,4 @@ public class UserController {
   public List<User> getAllUsers() {
     return userService.getAllUsers();
   }
-
-  // username으로 조회
-  @GetMapping("/{username}")
-  public User getUserByUsername(@PathVariable String username) {
-    return userService.getUserByUsername(username);
-  }
 }
