@@ -3,7 +3,10 @@ package com.fromnowwon.rnaiplatform.service.auth;
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.fromnowwon.rnaiplatform.dto.auth.request.LoginRequest;
 import com.fromnowwon.rnaiplatform.dto.auth.request.SignUpRequest;
+import com.fromnowwon.rnaiplatform.dto.auth.response.LoginResponse;
 import com.fromnowwon.rnaiplatform.entity.User;
 import com.fromnowwon.rnaiplatform.enums.Role;
 import com.fromnowwon.rnaiplatform.repository.user.UserRepository;
@@ -47,4 +50,22 @@ public class AuthService {
     userRepository.save(user);
   }
 
+  // ==============================
+  // 로그인
+  // ==============================
+  public LoginResponse login(LoginRequest request) {
+    User user = userRepository.findByEmail(request.getEmail())
+      .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 이메일입니다."));
+
+    if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+      throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+    }
+
+    // JWT 발급
+    String token = jwtTokenProvider.generateToken(user.getEmail(), user.getRole().name());
+
+    return LoginResponse.builder()
+      .token(token)
+      .build();
+  }
 }
