@@ -25,8 +25,8 @@ public class UserService {
     return userRepository.findAll();
   }
 
-  // username으로 조회
-  public User getUserByUsername(String username) {
-    return userRepository.findByUsername(username);
+  // 이메일 중복 조회
+  public boolean isEmailDuplicate(String email) {
+    return userRepository.existsByEmail(email);
   }
 }

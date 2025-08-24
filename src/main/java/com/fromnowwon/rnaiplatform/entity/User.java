@@ -51,7 +51,7 @@ public class User {
 
   @NotBlank(message = "Email은 필수 입력입니다.")
   @Email(message = "Email 형식이 올바르지 않습니다.")
-  @Column(nullable = false, length = 100)
+  @Column(nullable = false, unique = true, length = 100)
   private String email;
 
   @Enumerated(EnumType.STRING) // Enum 타입을 DB에 문자열로 저장
