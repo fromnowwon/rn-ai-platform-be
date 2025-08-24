@@ -11,5 +11,13 @@ spring:
   jackson:
     serialization:
       indent-output: true
+
 server:
   port: 8080
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: false # 공통 환경에서는 기본 비활성화
+    operations-sorter: method

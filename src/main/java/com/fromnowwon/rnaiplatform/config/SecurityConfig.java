@@ -30,8 +30,13 @@ public class SecurityConfig {
       .csrf(csrf -> csrf.disable()) // CSRF 보안 비활성화 (JWT 토큰 기반 인증 사용)
       .headers(headers -> headers.frameOptions(frame -> frame.disable())) // H2 콘솔 frame 허용
       .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/api/auth/signup/**", "/api/auth/login/**").permitAll()
-        .requestMatchers("/h2-console/**").permitAll() // H2 콘솔 허용
+        .requestMatchers(
+            "/api/auth/signup/**", 
+            "/api/auth/login/**", 
+            "/h2-console/**", 
+            "/swagger-ui/**", 
+            "/v3/api-docs/**"
+        ).permitAll()
         .anyRequest().authenticated()
       )
       .sessionManagement(session -> session
