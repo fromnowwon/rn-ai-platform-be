@@ -63,8 +63,10 @@ logging:
   level:
     root: INFO
     com.rnai.backend: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} - %clr(%5p) %clr([%t]){cyan} %clr(%c){magenta} - %m%n"
 
 # ==============================
 # Spring Boot Actuator (헬스체크, 메트릭 등)
