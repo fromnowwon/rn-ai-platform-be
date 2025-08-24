@@ -85,14 +85,11 @@ management:
 # ==============================
 springdoc:
   api-docs:
-    path: /v3/api-docs
+    path: ${SPRINGDOC_API_DOCS_PATH:/api-docs}
   swagger-ui:
-    enabled: true
+    # path: ${SPRINGDOC_SWAGGER_UI_PATH:index.html}
+    enabled: ${SPRINGDOC_SWAGGER_UI_ENABLED:true}
     operations-sorter: method
-  info:
-    title: "RnAi Platform API (Local)"
-    description: "로컬 환경용 Swagger 문서"
-    version: "1.0.0"
 
 # ==============================
 # 애플리케이션 정보

@@ -14,7 +14,7 @@ import jakarta.validation.Valid;
 
 @Tag(name = "Auth", description = "회원가입/로그인 API")
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 
   private final AuthService authService;

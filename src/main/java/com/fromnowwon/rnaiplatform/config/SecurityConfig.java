@@ -31,11 +31,11 @@ public class SecurityConfig {
       .headers(headers -> headers.frameOptions(frame -> frame.disable())) // H2 콘솔 frame 허용
       .authorizeHttpRequests(auth -> auth
         .requestMatchers(
-            "/api/auth/signup/**", 
-            "/api/auth/login/**", 
-            "/h2-console/**", 
+            "/actuator/**",
+            "/h2-console/**",
+            "/api-docs/**",
             "/swagger-ui/**", 
-            "/v3/api-docs/**"
+            "/api/v1/**"
         ).permitAll()
         .anyRequest().authenticated()
       )
